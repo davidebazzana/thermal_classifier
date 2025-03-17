@@ -17,7 +17,6 @@ from data_loader import DataLoader
 def main():
     parser = argparse.ArgumentParser(description="Thermal camera classification of bees varroa free/infested.")
 
-    parser.add_argument('-t', '--train', action=argparse.BooleanOptionalAction, help="Train a SVC")
     parser.add_argument('-d', '--dataset', help="Path to dataset. The dataset folder must contain two sub-folders: free and infested.")
     parser.add_argument('-f', '--features', help="Path to the extracted features. These features will be used for training/inference.")
     parser.add_argument('-m', '--model', help="Path to trained model.")
@@ -63,23 +62,21 @@ def main():
     # Splitting dataset
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    if args.train:
-        start_time = time.time()
+    start_time = time.time()
 
-        print(f'preprocessing...')
-        scaler = MaxAbsScaler()
-        X_train_scaled = scaler.fit_transform(X_train)
-        X_test_scaled = scaler.transform(X_test)
+    print(f'preprocessing...')
+    scaler = MaxAbsScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
     
-        print(f'training...')
-        # Train SVM Classifier
-        clf = SVC(kernel='linear', class_weight='balanced')
-        clf.fit(X_train, y_train)
+    print(f'training...')
+    # Train SVM Classifier
+    clf = SVC(kernel='linear', class_weight='balanced')
+    clf.fit(X_train, y_train)
 
-        joblib.dump(clf, "./models/" + args.save_model)
+    if args.save_model is not None:
+        joblib.dump(clf, args.save_model)
         print("Model saved successfully.")
-    else:
-        clf = joblib.load(args.model)
     
     print(f'testing...')
     # Prediction & Accuracy

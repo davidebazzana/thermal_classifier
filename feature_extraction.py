@@ -14,8 +14,6 @@ import math
 
 
 def extract_features(image, bounding_box=None):
-    # image = read_image(image_path)
-
     if bounding_box is not None:
         x, y, w, h = bounding_box
         image = image[y:y+h, x:x+w]
@@ -28,14 +26,7 @@ def extract_features(image, bounding_box=None):
     correlation = graycoprops(glcm, 'correlation')[0, 0]
     mean = graycoprops(glcm, 'mean')[0, 0]
     variance = graycoprops(glcm, 'variance')[0, 0]
-    entropy = graycoprops(glcm, 'entropy')[0, 0]
-    # .mean(axis=1)[0]
-
-    
-    image = cv2.normalize(image, None, 0, 1, cv2.NORM_MINMAX, dtype=cv2.CV_32F)
-    mean_temp = np.mean(image)
-    std_temp = np.std(image)
-    
+    entropy = graycoprops(glcm, 'entropy')[0, 0]    
     
     features = {
         "contrast": contrast,
@@ -43,8 +34,8 @@ def extract_features(image, bounding_box=None):
         "homogeneity": homogeneity,
         "energy": energy,
         "correlation": correlation,
-        # "mean": mean,
-        # "variance": variance,
+        "mean": mean,
+        "variance": variance,
         "entropy": entropy,
     }
 

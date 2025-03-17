@@ -40,5 +40,4 @@ class DataLoader:
         image = cv2.imread(self.image_files[self.index], self.cv2_flags)
         if image is None:
             raise ValueError("Error loading image. Check the file path.")
-        # image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX, dtype=cv2.CV_32F)
         return image
