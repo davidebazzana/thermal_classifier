@@ -1,8 +1,8 @@
 # Classification on thermal images
 
-In order to run the code in this repository, download the dataset of thermal images at https://drive.google.com/drive/folders/1BkbsIdJeAdiAsXj1-unRo4MF8O3G1bpv?usp=drive_link
+In order to run the code in this repository, download the dataset of thermal images (`dataset_free_thermal` and `dataset_infested_thermal`) at https://drive.google.com/drive/folders/1BkbsIdJeAdiAsXj1-unRo4MF8O3G1bpv?usp=drive_link.
 
-The dataset should be split into training and inference partitions. Use the training partition for the training task, the algorithm will take care of splitting it into training and testing datasets. Use the inference partition to simulate a real-world inferencing condition. Each partition must be organized into two sub-folders: `free` and `infested`. The following is an example of how to organize the folders:
+The dataset should be split into training and inference partitions. Use the training partition for the training task, the algorithm will take care of splitting it into training and testing datasets. Use the inference partition to simulate a real-world inferencing tasks. Each partition must be organized into two sub-folders: `free` and `infested`. The following is an example of how to organize the folders:
 ```
 thermal_classifier
 ├── dataset
