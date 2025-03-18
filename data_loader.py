@@ -3,8 +3,8 @@ import cv2
 
 class DataLoader:
     def __init__(self, dataset_path, cv2_flags=cv2.IMREAD_GRAYSCALE):
-        free_folder_path = dataset_path + "free/"
-        infested_folder_path = dataset_path + "infested/"
+        free_folder_path = dataset_path + "/free/"
+        infested_folder_path = dataset_path + "/infested/"
         free_file_list = os.listdir(free_folder_path)
         infested_file_list = os.listdir(infested_folder_path)
 

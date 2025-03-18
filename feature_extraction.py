@@ -18,15 +18,13 @@ def extract_features(image, bounding_box=None):
         x, y, w, h = bounding_box
         image = image[y:y+h, x:x+w]
 
-    glcm = graycomatrix(image.astype(np.uint8), distances=[1], angles=[0], symmetric=True, normed=True)
-    contrast = graycoprops(glcm, 'contrast')[0, 0]
-    dissimilarity = graycoprops(glcm, 'dissimilarity')[0, 0]
-    homogeneity = graycoprops(glcm, 'homogeneity')[0, 0]
-    energy = graycoprops(glcm, 'energy')[0, 0]
-    correlation = graycoprops(glcm, 'correlation')[0, 0]
-    mean = graycoprops(glcm, 'mean')[0, 0]
-    variance = graycoprops(glcm, 'variance')[0, 0]
-    entropy = graycoprops(glcm, 'entropy')[0, 0]    
+    glcm = graycomatrix(image.astype(np.uint8), distances=[1, 2, 3, 5, 10], angles=[0, np.pi/4, np.pi/2, 3*np.pi/4], symmetric=True, normed=True)
+    contrast = graycoprops(glcm, 'contrast').mean(axis=1)
+    dissimilarity = graycoprops(glcm, 'dissimilarity').mean(axis=1)
+    homogeneity = graycoprops(glcm, 'homogeneity').mean(axis=1)
+    energy = graycoprops(glcm, 'energy').mean(axis=1)
+    correlation = graycoprops(glcm, 'correlation').mean(axis=1)
+    entropy = graycoprops(glcm, 'entropy').mean(axis=1)
     
     features = {
         "contrast": contrast,
@@ -34,8 +32,6 @@ def extract_features(image, bounding_box=None):
         "homogeneity": homogeneity,
         "energy": energy,
         "correlation": correlation,
-        "mean": mean,
-        "variance": variance,
         "entropy": entropy,
     }
 
